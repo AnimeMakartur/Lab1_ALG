@@ -6,14 +6,17 @@
 int inputNumb();
 char* createNumb(int, char[]);
 void createArrayOfNums(int, char[], char*[]);
+int sumOfDigits(char*);
+void printArrayAndSums(int, char* []);
 
 int main()
 {
 	char num[31];
+	char* arr[30];
+	int N = inputNumb();
 	srand(time(0));
-	int N= inputNumb();
-	createNumb(N, num);
-	puts(num);
+	createArrayOfNums(N, num, arr);
+	printArrayAndSums(N, arr);
 	return 0;
 }
 
@@ -23,7 +26,7 @@ int inputNumb()
 	printf("Enter the number of digits: ");
 	label:
 	scanf_s("%d", &N);
-	if(N < 15 || N > 30)
+	if(N < 14 || N > 31)
 	{
 		printf("Invalid input. Please enter a number between 15 and 30: ");
 		goto label;
@@ -42,11 +45,35 @@ char* createNumb(int N, char num[])
 
 void createArrayOfNums(int N, char num[], char* arr[])
 {
-	for(int i = 0; i < N; i++)
+	char** i = arr;
+	for(; i < arr+ N; i++)
 	{
-		arr[i] = _strdup(createNumb(N, num));
+		*i = _strdup(createNumb(N, num));
 	}
 
 }
 
+int sumOfDigits(char* num)
+{
+	int sum = 0;
+	char* i = num;
+	while (*i++)
+	{
+		sum += *i - '0';
+	}
+	return sum;
+}
+
+void printArrayAndSums(int N, char* arr[])
+{
+	char** i = arr;
+
+	printf("\n%-32s | %s\n", "Generated Number", "Sum of Digits");
+	printf("----------------------------------------------------------\n");
+
+	for (; i < arr + N; i++)
+	{
+		printf("%-32s | %d\n", *i, sumOfDigits(*i));
+	}
+}
 
