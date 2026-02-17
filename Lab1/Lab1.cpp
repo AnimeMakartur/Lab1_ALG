@@ -10,7 +10,6 @@
 
 //Прототипи функцій
 void inputNumber(int*, int, int);//Введення кількості цифр
-void inputNumberOfElements(int*);// 
 char* createNumb(int, char[]);//Створення випадкового числа у вигляді рядка
 void createArrayOfNums(int, char[], char* []);//Створення масиву рядків з випадковими числами
 int sumOfDigits(char*);//Підрахунок суми цифр у рядку
