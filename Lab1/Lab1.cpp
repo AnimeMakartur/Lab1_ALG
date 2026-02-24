@@ -7,35 +7,35 @@
 #define MaxN 30
 
 //Прототипи функцій
-void inputNumber(int*);//Введення кількості цифр
+int inputNumber();//Введення кількості цифр
 char* createNumb(int, char[]);//Створення випадкового числа у вигляді рядка
-void createArrayOfNums(int, char[], char* []);//Створення масиву рядків з випадковими числами
+void createArrayOfNums(int, char* []);//Створення масиву рядків з випадковими числами
 int sumOfDigits(char*);//Підрахунок суми цифр у рядку
 void printArrayAndSums(int, char* []);//Виведення масиву рядків та суми цифр у кожному рядку
 
 //Головна функція
 int main()
 {
-	char num[MaxN + 1];
 	char* arr[MaxN];
-	int N;
-	inputNumber(&N);
+	int N=inputNumber();;
 	srand(time(0));
-	createArrayOfNums(N, num, arr);
+	createArrayOfNums(N, arr);
 	printArrayAndSums(N, arr);
 	return 0;
 }
 
-void inputNumber(int* Numb)
+int inputNumber()
 {
+	int Numb;
 	printf("Enter the number of digits: ");
 lable:
-	scanf_s("%d", Numb);
-	if (*Numb < MinN || *Numb > MaxN)
+	scanf_s("%d",&Numb);
+	if (Numb < MinN || Numb > MaxN)
 	{
-		printf("Invalid input. Please enter a number between 15 and 30\n");
+		printf("Invalid input. Please enter a number between 15 and 30:");
 		goto lable;
 	}
+	return Numb;
 }
 char* createNumb(int N, char num[])
 {
@@ -46,8 +46,9 @@ char* createNumb(int N, char num[])
 	*pNum = '\0';
 	return num;
 }
-void createArrayOfNums(int N, char num[], char* arr[])
+void createArrayOfNums(int N, char* arr[])
 {
+	char num[MaxN + 1];
 	for (char** parr = arr + N; arr < parr; arr++)
 		*arr = _strdup(createNumb(N, num));//_strdup виділяє пам'ять для рядка та копіює його
 }
